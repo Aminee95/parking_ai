@@ -1,38 +1,63 @@
-# Système de Reconnaissance Automatique de Plaques d'Immatriculation (ANPR) en Temps Réel
+# Automatic Number Plate Recognition (ANPR) System
 
-## Description
-Ce projet implémente un système de reconnaissance automatique des plaques d'immatriculation (ANPR) utilisant des modèles d'apprentissage profond (YOLO pour la détection d'objets) et EasyOCR pour la reconnaissance de texte. Le système est conçu pour fonctionner en temps réel et est destiné à la gestion des parkings ou à la surveillance des véhicules. Les plaques d'immatriculation sont détectées et lues à partir de vidéos ou de flux en direct, puis stockées dans une base de données pour un traitement ultérieur.
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Features](#features)
+3. [Technologies Used](#technologies-used)
+4. [Project Structure](#project-structure)
+5. [Data Collection](#data-collection)
+6. [Model Training](#model-training)
+7. [Database Setup](#database-setup)
+8. [Running the Project](#running-the-project)
+9. [Using Docker](#using-docker)
+10. [Results and Analysis](#results-and-analysis)
+11. [Future Work](#future-work)
+12. [Contributing](#contributing)
+13. [License](#license)
 
-## Fonctionnalités
-- Détection des véhicules et des plaques d'immatriculation en temps réel à partir de vidéos.
-- Lecture et reconnaissance de texte des plaques en plusieurs langues (anglais, arabe, etc.).
-- Traque des véhicules via un algorithme de suivi (SORT).
-- Filtrage et sélection du meilleur score de reconnaissance de texte.
-- Stockage des données dans une base de données PostgreSQL.
+## Introduction
+This project is an **Automatic Number Plate Recognition (ANPR)** system designed to detect and recognize vehicle license plates in real-time. The project aims to improve parking management and surveillance, particularly in urban areas like **Netherlands**, by using cutting-edge computer vision and machine learning techniques.
 
-## Prérequis
+The system is capable of detecting number plates from various countries, including those using both Arabic and Latin characters. It leverages **YOLO** for number plate detection and **EasyOCR** for multilingual text recognition.
 
-### Logiciels
-- Python 3.8 
-- OpenCV
-- EasyOCR
-- YOLO (You Only Look Once)
-- NumPy
-- psycopg2 (pour la connexion à PostgreSQL)
-- SORT (Simple Online and Realtime Tracking)
+## Features
+- Real-time number plate detection using YOLOv8.
+- Multilingual number plate recognition with EasyOCR.
+- Integration with a PostgreSQL database for storing plate numbers, detection time, and GPS coordinates.
+- Flexible design that allows adaptation for multiple countries' number plates (Netherlands, France, etc.).
+- Dockerized for easy deployment and testing.
 
-### Matériel
-- Nvidia Jetson Nano 
-- Caméra compatible (USB ou CSI)
-- Base de données PostgreSQL
+## Technologies Used
+- **Python 3.8+**: Main programming language.
+- **YOLOv8**: For real-time object detection.
+- **EasyOCR**: Multilingual Optical Character Recognition (OCR).
+- **Roboflow**: Platform for dataset collection and annotation (24,000 images).
+- **SQLAlchemy**: ORM for PostgreSQL database interaction.
+- **PostgreSQL**: Database for storing detected license plate data.
+- **Docker**: For containerizing the application and its dependencies.
+- **Jetson Nano**: Embedded system for real-time edge deployment.
 
-- 
-## Installation
+## Project Structure
+ ├── data/ # Directory for datasets ├── models/ # Pre-trained and trained models ├── scripts/ # Python scripts for detection and recognition ├── database/ # SQLAlchemy models and database configurations ├── docker/ # Docker configurations for running the app ├── tests/ # Unit tests for the project ├── results/ # Logs and output from tests └── README.md # This readme file
 
-1. Clonez le dépôt du projet :
+
+## Data Collection
+The dataset used for this project was collected and annotated using **Roboflow**. It consists of **24,000 images** of license plates from various countries, annotated with bounding boxes.
+
+- **Training set**: 87%
+- **Validation set**: 7%
+- **Test set**: 4%
+
+The dataset includes images from different countries with varying plate formats to ensure the model is robust and capable of detecting multiple formats.
+
+## Model Training
+- **YOLOv8** was used to train the model for number plate detection. The training was performed on a GPU-based environment, leveraging the dataset from Roboflow.
+- For recognition, **EasyOCR** was employed due to its ability to handle multiple languages (Arabic and Latin characters).
+
+### Training Commands:
 ```bash
-git clone https://github.com/Aminee95/parking_ai.git
+# For YOLOv8 training
+python train.py --data data.yaml --cfg cfg/yolov8.cfg --epochs 50 --weights yolov8.pt
 
-cd reconnaissance_plaque
-pip install -r requirements.txt
-
+# For OCR testing
+python ocr_test.py --image <image-path>
