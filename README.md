@@ -31,7 +31,7 @@ Ce projet implémente un système de reconnaissance automatique des plaques d'im
 
 1. Clonez le dépôt du projet :
 ```bash
-git clone https://github.com/Aminee95/reconnaissance_plaque.git
+git clone https://github.com/Aminee95/parking_ai.git
 
 cd reconnaissance_plaque
 pip install -r requirements.txt
