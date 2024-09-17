@@ -174,9 +174,9 @@ During testing, the following results were achieved:
 We welcome contributions to this project! If you would like to contribute, please follow these steps:
 
 1. Fork the repository.
-2. Create a feature branch (git checkout -b feature-branch).
-3. Commit your changes (git commit -m 'Add some feature').
-4. Push to the branch (git push origin feature-branch).
+2. Create a feature branch (```bash git checkout -b feature-branch```).
+3. Commit your changes (```bash git commit -m 'Add some feature'```).
+4. Push to the branch (```bash git push origin feature-branch```).
 5. Open a pull request, and we will review your changes.
 ### License
 This project is licensed under the MIT License. See the[LICENSE] file for details.
