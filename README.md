@@ -179,7 +179,6 @@ We welcome contributions to this project! If you would like to contribute, pleas
 4. Push to the branch (```bash git push origin feature-branch```).
 5. Open a pull request, and we will review your changes.
 ### License
-This project is licensed under the MIT License. See the[LICENSE] file for details.
-
+This project is licensed under the [MIT License](./LICENSE). See the LICENSE file for details.
 This Markdown now covers everything from Database Setup onwards, ready to be included in your `README.md`.
 
