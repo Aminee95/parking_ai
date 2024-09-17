@@ -62,10 +62,10 @@ python train.py --data data.yaml --cfg cfg/yolov8.cfg --epochs 50 --weights yolo
 # For OCR testing
 python ocr_test.py --image <image-path>
 ```
-Database Setup
+### Database Setup
 The detected license plates, along with additional metadata like detection time and GPS coordinates, are stored in a PostgreSQL database. This data is managed using SQLAlchemy, which simplifies the process of interacting with the database.
 
-Setting Up PostgreSQL
+## Setting Up PostgreSQL
 1. **Install PostgreSQL**:
 ```bash
 sudo apt-get update
@@ -80,7 +80,7 @@ createdb anpr_db
 ```bash
 SQLALCHEMY_DATABASE_URI = 'postgresql://username:password@localhost/anpr_db'
 ```
-Using SQLAlchemy for Database Management
+## Using SQLAlchemy for Database Management
 With SQLAlchemy, you can define database tables using Python classes, simplifying database operations.
 
 Example of a table schema for storing detected plates:
@@ -123,10 +123,39 @@ results = session.query(PlateDetection).all()
 for plate in results:
     print(plate.plate_number, plate.detection_time, plate.latitude, plate.longitude)
 ```
-Running the Project
-Prerequisites
+### Running the Project
+## Prerequisites
 Make sure you have the following installed:
 
 - Python 3.8+
 - PostgreSQL
 - Docker (optional for containerization)
+
+## Steps to Run
+1. **Clone the Repository**:
+```bash
+git clone https://github.com/yourusername/anpr.git
+cd anpr
+```
+2. **Install Python Dependencies**: Install the required libraries using pip:
+```bash
+pip install -r requirements.txt
+```
+3. **Run YOLOv8 for Plate Detection**: To detect plates from an image or video feed:
+```bash
+python detect.py --image <path-to-image> --save-db
+```
+4. **View Detected Plates in the Database**: After running the detection, the plates will be stored in PostgreSQL. You can view the records by querying the database.
+### Using Docker
+To simplify deployment and testing, the project includes a Docker setup. This allows the project to run in isolated environments, ensuring consistent behavior across different machines.
+
+## Building the Docker Image
+1. **Build the Docker image**:
+```bash
+docker build -t anpr-system .
+```
+2. **Run the Docker Container**:
+```bash
+docker run -d -p 8000:8000 anpr-system
+```
+3.**Access the Application**: The application will now be running at http://localhost:8000, where you can interact with the detection system and database.
