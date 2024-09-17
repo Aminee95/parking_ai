@@ -106,7 +106,7 @@ engine = create_engine('postgresql://username:password@localhost/anpr_db')
 Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
-
+```
 Inserting a record:
 ```python
 new_plate = PlateDetection(
@@ -116,16 +116,17 @@ new_plate = PlateDetection(
 )
 session.add(new_plate)
 session.commit()
-
+```
 Querying records:
 ```python
 results = session.query(PlateDetection).all()
 for plate in results:
     print(plate.plate_number, plate.detection_time, plate.latitude, plate.longitude)
+```
 Running the Project
 Prerequisites
 Make sure you have the following installed:
 
-Python 3.8+
-PostgreSQL
-Docker (optional for containerization)
+- Python 3.8+
+- PostgreSQL
+- Docker (optional for containerization)
