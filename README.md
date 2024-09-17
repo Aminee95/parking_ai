@@ -159,3 +159,9 @@ docker build -t anpr-system .
 docker run -d -p 8000:8000 anpr-system
 ```
 3.**Access the Application**: The application will now be running at http://localhost:8000, where you can interact with the detection system and database.
+
+### License
+This project is licensed under the MIT License. See the LICENSE file for details.
+```css
+This Markdown now covers everything from Database Setup onwards, ready to be included in your `README.md`.
+```
