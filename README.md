@@ -61,7 +61,7 @@ python train.py --data data.yaml --cfg cfg/yolov8.cfg --epochs 50 --weights yolo
 
 # For OCR testing
 python ocr_test.py --image <image-path>
-
+```
 Database Setup
 The detected license plates, along with additional metadata like detection time and GPS coordinates, are stored in a PostgreSQL database. This data is managed using SQLAlchemy, which simplifies the process of interacting with the database.
 
@@ -70,16 +70,16 @@ Setting Up PostgreSQL
 ```bash
 sudo apt-get update
 sudo apt-get install postgresql postgresql-contrib
-
+```
 2. **Create a PostgreSQL Database: After installation, create a new database for the project**:
 ```bash
 sudo -i -u postgres
 createdb anpr_db
-
+```
 3. **Configure Database Access: Update the SQLAlchemy connection string with your PostgreSQL credentials in the project configuration file**:
 ```bash
 SQLALCHEMY_DATABASE_URI = 'postgresql://username:password@localhost/anpr_db'
-
+```
 Using SQLAlchemy for Database Management
 With SQLAlchemy, you can define database tables using Python classes, simplifying database operations.
 
