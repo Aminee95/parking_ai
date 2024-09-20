@@ -21,20 +21,15 @@ def license_complies_format(text):
             text[4] in string.ascii_uppercase or text[4] in dict_int_to_char.keys(),
             text[5] in string.ascii_uppercase or text[5] in dict_int_to_char.keys()]):
         return 1
+
     elif all([text[0] in string.digits or text[0] in dict_char_to_int.keys(),
-              text[1] in string.ascii_uppercase or text[1] in dict_int_to_char.keys(),
-              text[2] in string.ascii_uppercase or text[2] in dict_int_to_char.keys(),
-              text[3] in string.ascii_uppercase or text[3] in dict_int_to_char.keys(),
-              text[4] in string.digits or text[4] in dict_char_to_int.keys(),
-              text[5] in string.digits or text[5] in dict_char_to_int.keys()]):
+            text[1] in string.digits or text[1] in dict_char_to_int.keys(),
+            text[2] in string.ascii_uppercase or text[2] in dict_int_to_char.keys(),
+            text[3] in string.ascii_uppercase or text[3] in dict_int_to_char.keys(),
+            text[4] in string.digits or text[4] in dict_char_to_int.keys(),
+            text[5] in string.digits or text[5] in dict_char_to_int.keys()]):
         return 2
-    elif all([text[0] in string.digits or text[0] in dict_char_to_int.keys(),
-              text[1] in string.digits or text[1] in dict_char_to_int.keys(),
-              text[2] in string.ascii_uppercase or text[2] in dict_int_to_char.keys(),
-              text[3] in string.ascii_uppercase or text[3] in dict_int_to_char.keys(),
-              text[4] in string.digits or text[4] in dict_char_to_int.keys(),
-              text[5] in string.digits or text[5] in dict_char_to_int.keys()]):
-        return 3
+
     else:
         return False
 
@@ -47,8 +42,8 @@ def format_license(text):
     
     mappings = {
         1: {0: dict_int_to_char, 1: dict_char_to_int, 2: dict_char_to_int, 3: dict_char_to_int, 4: dict_int_to_char, 5: dict_int_to_char},
-        2: {0: dict_char_to_int, 1: dict_char_to_int, 2: dict_int_to_char, 3: dict_int_to_char, 4: dict_char_to_int, 5: dict_char_to_int},
-        3: {0: dict_char_to_int, 1: dict_int_to_char, 2: dict_int_to_char, 3: dict_int_to_char, 4: dict_char_to_int, 5: dict_char_to_int}
+        2: {0: dict_char_to_int, 1: dict_char_to_int, 2: dict_int_to_char, 3: dict_int_to_char, 4: dict_char_to_int, 5: dict_char_to_int}
+
     }
     
     license_plate_ = ''.join([mappings[plate_type][j].get(text[j], text[j]) for j in range(len(text))])
