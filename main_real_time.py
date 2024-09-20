@@ -8,7 +8,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from ultralytics import YOLO
 from sort import *
-from OCR import *
+from OCR_real_time import *
+from prettytable import PrettyTable  # Import PrettyTable to display results in a tabular format
+
 
 # Constants
 DATABASE_URL = 'postgresql://postgres:1995@localhost:5432/postgres'
@@ -62,6 +64,28 @@ def process_license_plate(license_plate_crop):
     blurred_plate = cv2.GaussianBlur(gray_plate, (5, 5), 0)
     thresh_plate = cv2.adaptiveThreshold(blurred_plate, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
     return read_license_plate(thresh_plate)
+def display_results_table(session):
+    """Fetch results from the database and display them in a table."""
+    # Create a table with PrettyTable
+    table = PrettyTable()
+    table.field_names = ["ID", "Frame Number", "Car ID", "License Plate", "Text Score", "Timestamp"]
+
+    # Fetch all results from the database
+    results = session.query(Result).filter(Result.text_score > 0.8).all()
+
+    # Add each result to the table
+    for result in results:
+        table.add_row([
+            result.id,
+            result.frame_number,
+            result.car_id,
+            result.license_plate_text,
+            f"{result.text_score:.2f}",
+            result.timestamp
+        ])
+    
+    # Print the table to the console
+    print(table)
 
 def main():
     """Main function for license plate recognition."""
@@ -160,6 +184,8 @@ def main():
 
     session.commit()
 
+    # Display the results table after processing
+    display_results_table(session)
     # Cleanup
     cap.release()
     out.release()
