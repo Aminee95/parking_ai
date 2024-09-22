@@ -3,9 +3,11 @@ import cv2
 import numpy as np
 import time
 from datetime import datetime
+
 from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+
 from ultralytics import YOLO
 from sort import *
 from OCR_real_time import *
@@ -40,7 +42,7 @@ def setup_database():
 
 def load_models():
     """Load the YOLO models for vehicle detection and license plate recognition."""
-    coco_model = YOLO('yolov8n.pt')
+    coco_model = YOLO('yolov8s.pt')
     license_plate_detector = YOLO('best.pt')
     return coco_model, license_plate_detector
 
@@ -89,7 +91,7 @@ def display_results_table(session):
 
 def main():
     """Main function for license plate recognition."""
-    os.chdir(r"C:\Users\amine\Desktop\projects\Reconnaissance_plaques")
+    
     
     # Database setup
     session = setup_database()
