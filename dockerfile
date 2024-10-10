@@ -16,6 +16,9 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libtiff-dev \
     libdc1394-22-dev \
+    libxcb-xinerama0 \
+    libxkbcommon-x11-0 \
+    libxcb-xinerama0-dev\
     gcc \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
@@ -24,20 +27,23 @@ RUN apt-get update && apt-get install -y \
 # 2. Définir le répertoire de travail dans le conteneur
 WORKDIR /app
 
+
+COPY . /app
+
 # 3. Copier les fichiers requirements.txt dans le conteneur
-COPY requirements.txt .
+#COPY requirements.txt .
 
 # 4. Installer les dépendances Python
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 3. Copier le module best.pt
-COPY best.pt .
+#COPY best.pt .
 
 # 5. Copier tout le contenu du projet dans le conteneur
-COPY . .
+#COPY . .
 
-# Exposer un port si nécessaire (par exemple pour une application web)
-EXPOSE 8000
+# Exposer un port 
+#EXPOSE 8000
 
 # 7. Définir la commande de démarrage
 CMD ["python", "main_real_time.py"]
