@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build: .
@@ -8,10 +6,16 @@ services:
     depends_on:
       - db
     environment:
-      POSTGRES_HOST: localhost
+      POSTGRES_HOST: db
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1995
+      DISPLAY: host.docker.internal:0.0        # Pour rediriger l'affichage vers VcXsrv
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix          # Partage de l'interface X11
+    command: python main_real_time.py
+    stdin_open: true                           # Garde stdin ouvert
+    tty: true                                  # Alloue un pseudo-TTY
 
   db:
     image: postgres:13
@@ -24,5 +28,15 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com   # Adresse email pour se connecter
+      PGADMIN_DEFAULT_PASSWORD: 1995           # Mot de passe
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
 volumes:
-  postgres_data:
+  postgres_data: {}
